@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Chain Reaction Game</title>
+	<style>
+		body {
+			font-family: arial;
+		}
+		.cf:after {
+		    content: '';
+		    display: block;
+		    clear:both;
+		}
+		.popup-bg {
+			position: fixed;
+			z-index: 1;
+			top:0; left:0;
+			width:100%;
+			height:100%;
+			background: black;
+  			opacity: 0.75;
+		}
+		.popup.popup--game-start{
+			position: fixed;
+			top:50%;
+			left:50%;
+			z-index: 2;
+			width: 250px;
+  			height: 119px;
+			margin:-60px 0 0 -125px;
+			padding: 15px;
+			border-radius: 5px;
+			background-color: #f6f6f6;
+			text-align: center;
+		}
+		.popup.popup--game-start .popup-link{
+			-webkit-box-sizing:border-box;
+			-moz-box-sizing:border-box;
+			-o-box-sizing:border-box;
+			-ms-box-sizing:border-box;
+			box-sizing:border-box;
+			display: block;
+			padding: 10px;
+			border:1px solid #c00;
+			border-radius: 5px;
+			background-color: #c00;
+			color: white;
+			text-decoration: none;
+		}
+		.popup.popup--game-start .popup-link + .popup-link{
+			margin-top: 10px;
+		}
+		.popup.popup--game-start .popup-link:hover{
+			border:1px solid #c00;
+			color:#c00;
+			background-color: white;
+		}
+		.popup.popup--game-start .popup-seperator{
+			margin: 10px;
+		}
+		.current-player {
+			width: 160px;
+  			height: 35px;
+  			margin: 15px auto 20px;
+		}
+		.current-player .player-color {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			-o-box-sizing: border-box;
+			-ms-box-sizing: border-box;
+			box-sizing: border-box;
+			float:left;
+			width:35px;
+			height:35px;
+			border:1px solid black;
+			-webkit-transition: background 0.5s;
+			-moz-transition: background 0.5s;
+			-ms-transition: background 0.5s;
+			-o-transition: background 0.5s;
+			transition: background 0.5s;
+		}
+		.current-player .player-color[player="0"]{
+			background: #C00;
+		}
+		.current-player .player-color[player="1"]{
+			background: #0A0;
+		}
+		.current-player .player-name {
+			float:left;
+			margin:0 0 0 10px;
+			font-size:16px;
+			line-height:35px;
+		}
+		#grid {
+			width: 450px;
+			height:450px;
+			margin: 0 auto;
+			border: 1px solid black;
+			background-color: white;
+		}
+		#grid[isActive="0"] .box {
+			background-color: #e6e6e6;
+		}
+		.box {
+			float: left;
+			width: 48px;
+			height: 48px;
+			background-color: #ccc;
+			border: 1px solid black;
+			line-height: 48px;
+			text-align: center;
+			-webkit-transition: background 0.5s;
+			-moz-transition: background 0.5s;
+			-ms-transition: background 0.5s;
+			-o-transition: background 0.5s;
+			transition: background 0.5s;
+		}
+		.box[player='0'] {
+			background: #C00;
+			color:white;
+		}
+		#grid[isActive="0"] .box[player='0'] {
+			background: #f66;
+		}
+		.box[player='1'] {
+			background: #0A0;
+			color:white;
+		}
+		#grid[isActive="0"] .box[player='1'] {
+			background-color: #3C3
+		}
+	</style>
+</head>
+<body>
+<body>
+<div class="popup-bg"></div>
+<div class="popup popup--game-start">
+	<a href="#" data-action="start" class="popup-link">Start Game</a>
+	<p class="popup-seperator">or</p>
+	<a href="#" data-action="join" class="popup-link">Join Game</a>
+</div>
+<div class="current-player cf">
+	<div class="player-color" player="0"></div>
+	<p class="player-name">Player 1's Turn</p>
+</div>
+<div id="grid" class="cf">
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>    
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>    
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>    
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>    
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>    
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>    
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>    
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>    
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+	<div class="box"></div>
+</div>
+<div class="action-log"></div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="script.js" type="text/javascript"></script>
+</body>
+</html>
